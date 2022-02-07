@@ -1,0 +1,45 @@
+{% extends 'base.html.j2'%}
+
+{% block title %}
+Loading Pokedex
+{% endblock %}
+{% block content %}
+    <h3>Which Pokemon do you want to learn more about?</h3><br>
+    <form action="{{url_for('pokesearch')}}" method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {# {{ form.pokemon.label(class="form-label") }} #}
+            {{ form.pokemon(class="form-control") }}
+            {% for error in form.pokemon.errors %}
+                <small style="color:red;">{{error}}</small>
+            {% endfor %}        
+        </div>
+        <br>
+        <div>
+            {{ form.submit(class="btn btn-info form-control") }}
+            <small style="color:red;">{{error}}</small>
+        </div>
+    </form>
+    <br>
+    {% if stats %}
+    <div class="d-flex justify-content-center">
+        <div class="card mb-3" style="max-width: 500px;">
+        <div class="row g-0">
+            <div class="col-md-7">
+                <img src='{{stats.sprite}}' class="img-fluid rounded-start ">
+            </div>
+            <div class="col-md-5">
+            <div class="card-body">
+                <h3 class="card-title">{{stats.name.title()}}</h3>
+                <p class="card-text"><strong>Base XP:</strong>&nbsp;{{stats.base_xp}}<br><strong>Type:</strong>&nbsp;{{stats.type.title()}}<br>
+                <strong>Weight:</strong>&nbsp;{{stats.weight}}<br><strong>Ability 1:</strong>&nbsp;{{stats.ability_1.title()}}<br>
+                <strong>Ability 2:</strong>&nbsp;{{stats.ability_2.title()}}<br><strong>Ability 3:</strong>&nbsp;{{stats.ability_3.title()}}<br></p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+{% endblock %}
