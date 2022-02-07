@@ -1,8 +1,8 @@
-import email
 from app import db, login
-from flask_login import UserMixin # this is just for the user model!
+from flask_login import UserMixin # This is just for the User model!
 from datetime import datetime as dt
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

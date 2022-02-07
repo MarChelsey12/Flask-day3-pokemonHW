@@ -5,7 +5,7 @@ Loading Pokedex
 {% endblock %}
 {% block content %}
     <h3>Which Pokemon do you want to learn more about?</h3><br>
-    <form action="{{url_for('pokesearch')}}" method="POST">
+    <form action="{{url_for('auth.pokesearch')}}" method="POST">
         {{ form.hidden_tag() }}
         <div>
             {# {{ form.pokemon.label(class="form-label") }} #}
