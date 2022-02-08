@@ -100,13 +100,11 @@ def pokesearch():
             pokedex = {
                 "sprite": response.json()['sprites']['other']['official-artwork']['front_default'],
                 "name":response.json()['forms'][0]['name'],
-                "ability_1":response.json()['abilities'][0]['ability']['name'],
-                "ability_2":response.json()['abilities'][1]['ability']['name'],
-                "ability_3":response.json()['abilities'][2]['ability']['name'],
+                "ability":response.json()['abilities'][0]['ability']['name'],
+                "move":response.json()['moves'][0]['move']['name'],
                 "base_xp":response.json()['base_experience'],
                 "weight":response.json()['weight'],
                 "type":response.json()['types'][0]['type']['name']
-                
             }
             return render_template('pokesearch.html.j2', stats = pokedex, form = form)
         else:
