@@ -52,14 +52,14 @@ def my_pokeballs():
 def training(id):
     is_added = Pokemon.query.get(id)
     if len(current_user.pokeballs.all()) == 5:
-        flash('Your Pokemon bank is full. Please remove Pokemon before adding.', 'danger')
+        flash('Your pokeballs are full.', 'danger')
         return redirect(url_for('battle.pokesearch'))
     elif is_added:
         current_user.catch(is_added)
         flash("You have caught the Pokemon!", "success")
         return redirect(url_for('battle.pokesearch'))
     else:
-        flash("Oh no! It escaped or your pokeballs are maxed!", "warning")
+        flash("Oh no! It escaped!", "warning")
         return redirect(url_for('battle.pokesearch'))
 
     
