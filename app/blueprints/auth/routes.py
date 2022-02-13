@@ -1,5 +1,5 @@
 from .import bp as auth
-from .forms import LoginForm, RegisterForm, EditProfileForm, PokeForm
+from .forms import LoginForm, RegisterForm, EditProfileForm
 from flask import render_template, request, flash, redirect, url_for
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
@@ -51,7 +51,7 @@ def register():
             #save user to the database
             new_user_object.save()
         except:
-            flash('There was an unexpected Error creating your Account Please Try Again.','danger')
+            flash('There was an unexpected Error creating your Account. Please Try Again.','danger')
             #Error Return
             return render_template('register.html.j2', form = form)
         # If it worked
@@ -84,37 +84,3 @@ def edit_profile():
             return redirect(url_for('auth.edit_profile'))
         return redirect(url_for('main.index'))
     return render_template('register.html.j2', form = form)
-
-
-#jinja form day2
-@auth.route('/pokesearch', methods=['GET', 'POST'])
-@login_required
-def pokesearch():
-    form = PokeForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        pokemon = request.form.get('pokemon')
-        #We will do the login stuff
-        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon}"
-        response = requests.get(url)
-        if response.ok:
-            pokedex = {
-                "sprite": response.json()['sprites']['other']['official-artwork']['front_default'],
-                "name":response.json()['forms'][0]['name'],
-                "ability":response.json()['abilities'][0]['ability']['name'],
-                "move":response.json()['moves'][0]['move']['name'],
-                "base_xp":response.json()['base_experience'],
-                "weight":response.json()['weight'],
-                "type":response.json()['types'][0]['type']['name']
-            }
-            return render_template('pokesearch.html.j2', stats = pokedex, form = form)
-        else:
-            error_string = "Page isn't working. "
-            return render_template('pokesearch.html.j2', error = error_string, form = form)
-    return render_template('pokesearch.html.j2', form = form)
-
-
-
-
-# pokemon_search('poliwag')
-
-# my_fighters= ['flareon', 'pachirisu', 'jirachi', 'roselia', 'aurorus']

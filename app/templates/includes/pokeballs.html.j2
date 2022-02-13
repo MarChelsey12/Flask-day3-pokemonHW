@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center">
+    <div class="card mb-3" style="max-width: 500px;">
+        <div class="row g-0">
+            <div class="col-md-7">
+                <img src='{{poke.sprite}}' class="img-fluid rounded-start ">
+            </div>
+            <div class="col-md-5">
+                <div class="card-body">
+                    <h3 class="card-title">{{poke.name.title()}}</h3>
+                        <p class="card-text"><strong>Base XP:</strong>&nbsp;{{poke.base_xp}}<br><strong>Type:</strong>&nbsp;{{poke.p_type.title()}}<br>
+                        <strong>Weight:</strong>&nbsp;{{poke.weight}}<br><strong>Ability:</strong>&nbsp;{{poke.ability.title()}}<br>
+                        <strong>Move:</strong>&nbsp;{{poke.move.title()}}<br></p>
+                        {% if poke in current_user.pokeballs %} 
+                        <a href="{{url_for('battle.release', id = poke.id)}}" class="btn btn-danger">Release?</a>
+                        {% endif %}
+                        {% if not poke in current_user.pokeballs %}
+                        <a href="{{url_for('battle.training', id = poke.id)}}" class="btn btn-success">Catch?</a>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

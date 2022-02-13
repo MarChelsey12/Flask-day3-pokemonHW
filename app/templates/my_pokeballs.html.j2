@@ -1,30 +1,13 @@
 {% extends 'base.html.j2'%}
-
 {% block title %}
-Search a Pokemon
+{{current_user.first_name}}'s Pokemon
 {% endblock %}
+
 {% block content %}
-<br>
-<h4>Need a Pokemon name? Check out this <a href="https://www.pokemon.com/us/pokedex/" target="_blank">Pokedex!</a></h4>
-    <br>
-    <form action="{{url_for('battle.pokesearch')}}" method="POST">
-        {{ form.hidden_tag() }}
-        <div>
-            {# {{ form.pokemon.label(class="form-label") }} #}
-            {{ form.pokemon(class="form-control") }}
-            {% for error in form.pokemon.errors %}
-                <small style="color:red;">{{error}}</small>
-            {% endfor %}        
-        </div>
-        <br>
-        <div>
-            {{ form.submit(class="btn btn-primary form-control") }}
-            <small style="color:red;">{{error}}</small>
-        </div>
-    </form>
-    <br>
-    {% if poke %}
-        <div class="d-flex justify-content-center">
+<h1>My Pokemon</h1>
+<hr>
+    {% for poke in current_user.pokeballs %}
+         <div class="d-flex justify-content-center">
         <div class="card mb-3" style="max-width: 500px;">
         <div class="row g-0">
             <div class="col-md-7">
@@ -39,14 +22,10 @@ Search a Pokemon
                 {% if poke in current_user.pokeballs %} 
                     <a href="{{url_for('battle.release', id = poke.id)}}" class="btn btn-danger">Release?</a>
                 {% endif %}
-                {% if not poke in current_user.pokeballs %}
-                    <a href="{{url_for('battle.training', id = poke.id)}}" class="btn btn-success">Catch?</a>
-                {% endif %}
             </div>
             </div>
         </div>
         </div>
     </div>
-    {% endif %}
-    
+    {%endfor%}
 {% endblock %}

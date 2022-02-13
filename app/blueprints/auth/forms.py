@@ -2,12 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Email, InputRequired
 from app.models import User
-from jinja2 import Markup
 
-class PokeForm(FlaskForm):
-    #field name = datatypeField('LABEL', validators=[LIST OF validators])
-    pokemon = StringField('Pokemon', validators=[InputRequired()])
-    submit = SubmitField('Search')
+
 
 class LoginForm(FlaskForm):
     #field name = DatatypeField('LABEL', validators=[LIST OF validators])
