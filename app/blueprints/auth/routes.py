@@ -17,7 +17,7 @@ def login():
         if u and u.check_hashed_password(password):
             #good email and password
             login_user(u)
-            flash('Welcome to PokeDex','success')
+            flash('Welcome! Have fun catching Pokemon and battling with your friends!','success')
             return redirect(url_for('main.index')) #good login
         flash('Incorrect Email password Combo','danger')
         return render_template('login.html.j2',form=form) #bad login
@@ -42,7 +42,9 @@ def register():
                 "first_name":form.first_name.data.title(),
                 "last_name":form.last_name.data.title(),
                 "email":form.email.data.lower(),
-                "password":form.password.data
+                "password":form.password.data,
+                "icon":int(form.icon.data),
+                "bio":form.bio.data
             }
             #create an empty User
             new_user_object = User()
@@ -69,7 +71,9 @@ def edit_profile():
                 "first_name":form.first_name.data.title(),
                 "last_name":form.last_name.data.title(),
                 "email":form.email.data.lower(),
-                "password":form.password.data
+                "password":form.password.data,
+                "icon":int(form.icon.data) if int(form.icon.data)!=9000 else current_user.icon,
+                "bio":form.bio.data
         }
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user and user.email != current_user.email:

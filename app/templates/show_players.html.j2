@@ -1,32 +1,31 @@
-{# {% extends 'base.html.j2'%}
+{% extends 'base.html.j2'%}
 {% block title %}
-Discover
+Battle
 {% endblock %}
 
 {% block content %}
-    <h1>Discover</h1>
-    <hr>
+<h1 style="text-align:center; color:white;">Battle other players</h1>
+<hr>
+<div class="container d-flex justify-content-evenly">
     {%for user in users%}
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                <img src="{{user.get_icon_url()}}" class="img-fluid rounded-start" alt="avatar">
-                </div>
-                <div class="col-md-8">
+        {% if user != current_user %}
+         <<div class="d-flex flex-row-reverse">
+            <div class="col">
+                <div class="card text-white bg-dark">
+                <img src="{{user.get_icon_url()}}" class="card-img-top" alt="Avatar">
                 <div class="card-body">
                     <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
-                    <p class="card-text">Maybe we will ad a bio to our user in the future and show it here?</p>
-                   {% if current_user.is_following(user) %}
-                   {# show unfollow #}
-                        <a href="{{url_for('social.unfollow', id=user.id)}}" class="btn btn-danger">Unfollow</a>
-                   {% else %}
-                   {# show follow #}
-                        <a href="{{url_for('social.follow', id=user.id)}}" class="btn btn-success">Follow</a>
-                   {% endif %}
+                    <p class="card-text">Wins: {{user.wins}}<br>
+                    Losses: {{user.losses}}</p>
+                        <p><a href="{{url_for('battle.battle', id=user.id)}}" class="btn btn-danger">Challange to Battle!</a><br></p>
                 </div>
                 </div>
+                <br>
             </div>
         </div>
+        {% endif %}
     {%endfor%}
 
-{% endblock %} #}
+</div>
+{% endblock %}
+

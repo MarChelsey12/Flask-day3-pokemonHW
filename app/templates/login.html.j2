@@ -1,8 +1,10 @@
+
 {% extends 'base.html.j2' %}
 {% block title %}
     Login
 {% endblock %}
 {% block content %}
+<div class="container text-white bg-dark mb-3">
     <h1>Login</h1>
 
     <form action="{{url_for('auth.login')}}" method="POST">
@@ -28,4 +30,7 @@
         </div>
             <small style="color:red;">{{error}}</small>
     </form>
+<br>
+<br>
+</div>
 {% endblock %}

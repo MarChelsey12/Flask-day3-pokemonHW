@@ -27,7 +27,7 @@ def create_app(config_class=Config):
 
     # This is where you will be sent if you are not logged
     # into trying to go to a login required page
-    login.login_view='login'
+    login.login_view='auth.login'
     login.login_message = 'Please login before you continue.'
     login.login_message_category='warning'
 

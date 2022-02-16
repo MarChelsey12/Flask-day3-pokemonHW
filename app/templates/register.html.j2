@@ -1,3 +1,4 @@
+
 {% extends 'base.html.j2' %}
 {% block title %}
     {% if current_user.is_authenticated %}
@@ -8,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="container text-white bg-dark mb-3">
 <h1>
     {% if current_user.is_authenticated %}
     Edit Profile
@@ -19,8 +20,8 @@
 
 <form action="{{url_for('auth.edit_profile') if current_user.is_authenticated else url_for('auth.register')}}" method='POST'>
   {{ form.hidden_tag() }}
-{# 
-    {% if not current_user.is_authenticated %}
+
+    
 
     {{form.icon.label}}<br>
     {% for subfield in form.icon %}
@@ -28,9 +29,6 @@
         {{subfield.label | safe }}
     {% endfor %}
     <br>
-
-    {%endif%} #}
-
 
   {# first_name section #}
   {{ form.first_name.label(class="form-label") }}
@@ -66,5 +64,7 @@
   {{ form.submit(class="btn btn-primary form-control") }}
 
 </form>
-
+<br>
+<br>
+</div>
 {% endblock %}

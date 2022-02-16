@@ -1,0 +1,53 @@
+
+{% extends 'base.html.j2'%}
+{% block title %}
+Battle
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center; color:white;">{{user_to_battle.first_name}}&nbsp; VS &nbsp;{{current_user.first_name}}</h1>
+<hr>
+<div class="container d-flex justify-content-evenly " id="opponent">
+    <div class="d-flex flex-row">
+        <div class="col">
+        {% for poke in user_to_battle.pokeballs%}
+            <div class="card text-white bg-dark">
+            <img src="{{poke.sprite}}" class="card-img-top" alt="Sprite">
+            <div class="card-body">
+                <h5 class="card-title">{{poke.name.title()}}</h5>
+                <p class="card-text"><strong>Base XP:</strong>&nbsp;{{poke.base_xp}}<br>
+                <strong>Type:</strong>&nbsp;{{poke.p_type.title()}}<br>
+                <strong>Weight:</strong>&nbsp;{{poke.weight}}<br>
+                <strong>Ability:</strong>&nbsp;{{poke.ability.title()}}<br>
+                <strong>Move:</strong>&nbsp;{{poke.move.title()}}<br></p>
+            </div>
+            </div>
+            <br>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="d-flex flex-row ">
+        <div class="col lign-items-stretch">
+        <a href="{{url_for('battle.battle_results', id=user_to_battle.id)}}" class="btn btn-info">Start Battle</a>
+        </div>
+    </div>
+    <div class="d-flex flex-row-reverse">
+        <div class="col">
+        {% for poke in current_user.pokeballs %}
+            <div class="card text-white bg-dark">
+            <img src="{{poke.sprite}}" class="card-img-top" alt="Sprite">
+            <div class="card-body">
+                <h5 class="card-title">{{poke.name.title()}}</h5>
+                <p class="card-text"><strong>Base XP:</strong>&nbsp;{{poke.base_xp}}<br>
+                <strong>Type:</strong>&nbsp;{{poke.p_type.title()}}<br>
+                <strong>Weight:</strong>&nbsp;{{poke.weight}}<br>
+                <strong>Ability:</strong>&nbsp;{{poke.ability.title()}}<br>
+                <strong>Move:</strong>&nbsp;{{poke.move.title()}}<br></p>
+            </div>
+            </div>
+            <br>
+        {%endfor%}
+        </div>
+    </div>
+</div>
+{% endblock %}

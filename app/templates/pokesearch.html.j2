@@ -5,9 +5,11 @@ Search a Pokemon
 {% endblock %}
 {% block content %}
 <br>
-<h4>Need a Pokemon name? Check out this <a href="https://www.pokemon.com/us/pokedex/" target="_blank">Pokedex!</a></h4>
+<div class="container text-white bg-dark mb-3">
+<br>
+<h4 style="text-align:center; color:white;">Need a Pokemon name? Check out this <a href="https://www.pokemon.com/us/pokedex/" target="_blank">Pokedex!</a></h4>
     <br>
-    <form action="{{url_for('battle.pokesearch')}}" method="POST">
+    <form class="text-white bg-dark mb-3" action="{{url_for('battle.pokesearch')}}" method="POST">
         {{ form.hidden_tag() }}
         <div>
             {# {{ form.pokemon.label(class="form-label") }} #}
@@ -23,30 +25,31 @@ Search a Pokemon
         </div>
     </form>
     <br>
+</div>
     {% if poke %}
         <div class="d-flex justify-content-center">
-        <div class="card mb-3" style="max-width: 500px;">
-        <div class="row g-0">
-            <div class="col-md-7">
-                <img src='{{poke.sprite}}' class="img-fluid rounded-start ">
-            </div>
-            <div class="col-md-5">
-            <div class="card-body">
-                <h3 class="card-title">{{poke.name.title()}}</h3>
-                <p class="card-text"><strong>Base XP:</strong>&nbsp;{{poke.base_xp}}<br><strong>Type:</strong>&nbsp;{{poke.p_type.title()}}<br>
-                <strong>Weight:</strong>&nbsp;{{poke.weight}}<br><strong>Ability:</strong>&nbsp;{{poke.ability.title()}}<br>
-                <strong>Move:</strong>&nbsp;{{poke.move.title()}}<br></p>
-                {% if poke in current_user.pokeballs %} 
-                    <a href="{{url_for('battle.release', id = poke.id)}}" class="btn btn-danger">Release?</a>
-                {% endif %}
-                {% if not poke in current_user.pokeballs %}
-                    <a href="{{url_for('battle.training', id = poke.id)}}" class="btn btn-success">Catch?</a>
-                {% endif %}
-            </div>
+            <div class="card mb-3 text-white bg-dark mb-3 text-center" style="max-width: 500px;">
+                <div class="row g-0">
+                    <div class="col-md-7">
+                        <img src='{{poke.sprite}}' class="img-fluid rounded-start ">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <h3 class="card-title">{{poke.name.title()}}</h3>
+                            <p class="card-text"><strong>Base XP:</strong>&nbsp;{{poke.base_xp}}<br><strong>Type:</strong>&nbsp;{{poke.p_type.title()}}<br>
+                            <strong>Weight:</strong>&nbsp;{{poke.weight}}<br><strong>Ability:</strong>&nbsp;{{poke.ability.title()}}<br>
+                            <strong>Move:</strong>&nbsp;{{poke.move.title()}}<br></p>
+                            {% if poke in current_user.pokeballs %} 
+                                <a href="{{url_for('battle.release', id = poke.id)}}" class="btn btn-danger">Release?</a>
+                            {% endif %}
+                            {% if not poke in current_user.pokeballs %}
+                                <a href="{{url_for('battle.training', id = poke.id)}}" class="btn btn-success">Catch?</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-    </div>
     {% endif %}
     
 {% endblock %}

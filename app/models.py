@@ -38,6 +38,10 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(200))
+    bio = db.Column(db.String(300))
+    icon = db.Column(db.Integer)
+    wins = db.Column(db.Integer, default=0)
+    losses = db.Column(db.Integer, default=0)
     created_on = db.Column(db.DateTime, default=dt.utcnow)
     pokeballs = db.relationship('Pokemon',
                     secondary = 'pokemon_trainer',
@@ -59,11 +63,18 @@ class User(UserMixin, db.Model):
         self.last_name = data['last_name']
         self.email = data['email']
         self.password = self.hash_password(data['password'])
+        self.bio = data['bio']
+        self.icon = data['icon']
+        self.wins = data['wins']
+        self.losses = data['losses']
 
     # saves user to database
     def save(self):
         db.session.add(self)
         db.session.commit()
+    
+    def get_icon_url(self):
+        return f'https://avatars.dicebear.com/api/adventurer/{self.icon}.svg'
         
     def catch(self, pokemon):
         self.pokeballs.append(pokemon)
@@ -71,7 +82,18 @@ class User(UserMixin, db.Model):
 
     def free(self, pokemon):
         self.pokeballs.remove(pokemon)
-        db.session.commit()
+        db.s
+        
+    def battle(self, trainer):
+        return self.pokeballs.filter(self.id == trainer.id)
+
+    def attack_power(self):
+        attack = []
+        for poke in self.pokeballs:
+            attack.append(int(poke.base_xp))
+        attack_total = sum(attack)
+        return str(attack_total)
+
 
 @login.user_loader
 def load_user(id):

@@ -1,14 +1,14 @@
 {% extends 'base.html.j2'%}
 {% block title %}
-{{current_user.first_name}}'s Pokemon
+Pokemon
 {% endblock %}
 
 {% block content %}
-<h1 style="text-align:center; color:white;">My Pokemon</h1>
+<h1>{{User.first_name}}'s Pokemon</h1>
 <hr>
     <div class="container">
-        <div class="row justify-content-evenly row-cols-auto">
-            {% for poke in current_user.pokeballs %}
+        <div class="row row-cols-auto">
+            {% for poke in User.pokeballs %}
             <div class="col">
                 <div class="card mb-3 text-white bg-dark mb-3 text-center" style="max-width: 500px;">
                     <div class="row g-5">
